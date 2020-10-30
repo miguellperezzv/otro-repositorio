@@ -1,0 +1,103 @@
+<script>
+
+function generar(numero){
+
+var cant = Number(numero);
+var tabla=document.getElementById("div");
+
+for(i=0;i<cant;i++){
+    for(j=0;j<cant;j++){
+    var input =document.createElement("input");
+    input.type ="text";
+    input.size="3";
+    input.id=i+""+j;
+    input.value=i+j;
+    input.placeholder=input.id;
+    tabla.appendChild(input);  
+    }
+    tabla.innerHTML+="<br>"
+}
+	
+tabla.innerHTML+=""	
+
+
+}
+
+function calcular(num){
+
+//tabla="";
+//document.getElementById("arreglo")="";
+var n=Number(num);
+
+
+
+
+
+var m=new Array(n);
+
+//alert(" tamaño arreglo "+ m.length);
+
+/*(for c=0; c<n; c++){
+	m[c]= new Array(n);
+}*/
+c=0;
+while(c<n){
+	m[c]=new Array(n);
+	//alert("biarray creado");
+	c++;
+}
+
+//alert(" n  es "+ n);
+
+
+
+for(i=0;i<n;i++){
+		for(j=0;j<n;j++){
+			m[i][j]=Number(document.getElementById(i+""+j).value);
+			document.getElementById('arreglo').innerHTML+= m[i][j]+"<tr> <tr>";
+		}
+		document.getElementById('arreglo').innerHTML+="<br>"
+}
+
+c=1;
+for(i=0;i<(n-1);i++){
+	c=c+5;
+	for(k=i+1;k<n;k++){
+		c=c+4
+		for(j=i+1;j<n;j++){
+			c=c+16
+			m[k][j]=m[k][j] - (m[k][i]*m[i][j])/(m[i][i]);
+		}
+		c++;
+	}
+	c++;
+}
+c=c+3;
+
+det=1;
+for(i=0; i<n;i++){
+	c=c+6;
+	det=det*m[i][i];
+	
+}c=c+3;
+
+var a = ((n-1)*n*((2*n)-1))/(6)//(Math.pow(n,2)*(n-1))-(n*(n-2)*(n-1))-((2*n)*(n-1))+(((n-2)*(n-1)*((2*n)-3))/6)+((n-2)*(n-1))+(n-1);
+var b = ((n-1)*n)/2;//(n*(n-1))-(n-1)-(((n-2)*(n-1))/2);
+var formula = (16*a)+(5*b)+(6*(n-1))+3 + 6*n +3;
+
+document.getElementById('arreglo').innerHTML+= "FORMULA = "+formula+" <br> CONTEO =  "+c+"<BR>DETERMINANTE = "+det;
+//alert ("formula "+ formula+ " det "+ det+" conteo"+c );
+
+}
+
+window.onload = function(){
+    document.getElementById("boton").onclick(generar());
+}
+
+</script>
+<div id="cantidad" > INGRESE n para matriz nXn</div> <input type=text name=numero id="numero" size="3"><tr><tr>
+
+<input type="button" value="Generar" id="boton" onclick="generar(document.getElementById('numero').value)"><br><br>
+<input type='button' value='Calcular' ID='calcular' onclick="calcular(document.getElementById('numero').value)">
+<div id ='div'> </div>
+<div id ='arreglo'> </div>
